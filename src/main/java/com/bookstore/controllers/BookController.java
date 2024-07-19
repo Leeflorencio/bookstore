@@ -1,6 +1,7 @@
 package com.bookstore.controllers;
 
 import com.bookstore.dtos.BookDto;
+import com.bookstore.exceptions.ExceptionSaveBook;
 import com.bookstore.models.BookModel;
 import com.bookstore.service.BookService;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookModel> saveBook(@RequestBody BookDto bookDto){
+    public ResponseEntity<BookModel> saveBook(@RequestBody BookDto bookDto) throws ExceptionSaveBook {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.saveBook(bookDto));
     }
 
