@@ -7,10 +7,13 @@ import com.bookstore.models.ReviewModel;
 import com.bookstore.repositories.AuthorRepository;
 import com.bookstore.repositories.BookRepository;
 import com.bookstore.repositories.PublisherRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,8 +32,8 @@ public class BookService {
 
     @Transactional
     public BookModel saveBook(BookDto bookDto) throws ExceptionSaveBook {
-        try{
-            BookModel book = null;
+        try {
+            BookModel book = new BookModel();
             book.setTitle(bookDto.title());
             book.setPublisher(publisherRepository.findById(bookDto.publisherId()).get());
             book.setAuthors(authorRepository.findAllById(bookDto.authorIds()).stream().collect(Collectors.toSet()));
@@ -42,18 +45,30 @@ public class BookService {
             book.setReview(reviewModel);
 
             return bookRepository.save(book);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new ExceptionSaveBook("Erro ao cadastrar o livro");
         }
 
     }
 
-    public List<BookModel> getAllBooks(){
+    public List<BookModel> getAllBooks() {
         return bookRepository.findAll();
     }
 
     @Transactional
-    public void deleteBook(UUID id){
-        bookRepository.deleteById(id);
+    public ResponseEntity<Object> deleteBook(UUID id) throws ExceptionSaveBook {
+        try {
+            Optional identificador = bookRepository.findById(id);
+
+            if (!identificador.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não localizado");
+            } else {
+                bookRepository.deleteById(id);
+            }
+        }catch (Exception e){
+            throw new ExceptionSaveBook(e.getMessage());
+        }
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao excluir o livro ");
     }
+
 }

@@ -19,6 +19,7 @@ public class BookController {
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
+
     }
 
     @PostMapping
@@ -27,12 +28,12 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookModel>> getAllBooks(){
+    public ResponseEntity<List<BookModel>> getAllBooks() {
         return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooks());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable UUID id){
+    public ResponseEntity<Object> deleteBook(@PathVariable UUID id) throws ExceptionSaveBook {
         bookService.deleteBook(id);
         return ResponseEntity.status(HttpStatus.OK).body("Livro deletado com sucesso");
     }
