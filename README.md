@@ -9,3 +9,6 @@ Aplicação simples de Livraria construída usando Java e Spring Boot.
 - Adicionem, atualizem ou removam livros da coleção.
 
   
+## Tecnologias 
+
+Spring Boot, Spring Data JPA, Java 17, MySQL, Postman, Eureka Discovery. 
