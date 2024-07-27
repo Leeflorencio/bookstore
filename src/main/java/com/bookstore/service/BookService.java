@@ -65,10 +65,25 @@ public class BookService {
             } else {
                 bookRepository.deleteById(id);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ExceptionSaveBook(e.getMessage());
         }
-         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao excluir o livro ");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao excluir o livro ");
     }
 
+    public ResponseEntity<Object> getOneBook(UUID id) {
+
+        try {
+            Optional identificador = bookRepository.findById(id);
+
+            if (!identificador.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado");
+            }
+            var livro = identificador.get();
+            return ResponseEntity.status(HttpStatus.OK).body(livro);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao excluir o livro " + e);
+        }
+    }
 }

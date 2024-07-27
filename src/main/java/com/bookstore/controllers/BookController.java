@@ -51,4 +51,9 @@ public class BookController {
         bookService.deleteBook(id);
         return ResponseEntity.status(HttpStatus.OK).body("Livro deletado com sucesso");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getOneBook(@PathVariable UUID id) {
+        return bookService.getOneBook(id);
+    }
 }
