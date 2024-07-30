@@ -18,8 +18,4 @@ public class AuthorController {
         return authorService.saveAuthor(authorDto);
     }
 
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello from Example Service";
-    }
 }

@@ -8,6 +8,13 @@ Aplicação simples de Livraria construída usando Java e Spring Boot.
 - Visualizem informações detalhadas sobre cada livro.
 - Adicionem, atualizem ou removam livros da coleção.
 
+## Funcionalidades
+
+### Books:
+- *@PostMapping saveBook* - Adiciona um novo livro ao banco de dados, com as informações dos autores, review e editora. 
+- *@GetMapping getAllBooks* - Lista todos os livros salvos. 
+- *@DeleteMapping("/{id}") deleteBook* - Deleta um livro através do seu identificador. 
+- *@GetMapping("/{id}") getOneBook* - Localiza um livro através do seu identificador.
   
 ## Tecnologias 
 

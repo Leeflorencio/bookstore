@@ -19,7 +19,7 @@ public class AuthorModel implements Serializable {
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    ) //gerador de uuid
     private UUID id;
 
     @Column(nullable = false, unique = true)
