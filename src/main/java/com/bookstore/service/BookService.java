@@ -72,7 +72,6 @@ public class BookService {
     }
 
     public ResponseEntity<Object> getOneBook(UUID id) {
-
         try {
             Optional identificador = bookRepository.findById(id);
 
