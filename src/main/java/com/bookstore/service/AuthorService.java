@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuthorService {
@@ -23,15 +24,26 @@ public class AuthorService {
             authorModel.setName(authorDto.name());
 
             Optional nomeAutor = authorRepository.findByName(authorModel.getName());
-            if (nomeAutor.isPresent()){
+            if (nomeAutor.isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("O autor(a) " + authorModel.getName() + " já está cadastrado");
-            }else{
+            } else {
                 authorRepository.save(authorModel);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Autor(a) salvo com sucesso");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ExceptionSaveAuthor("Erro ao cadastrar " + e);
         }
 
+    }
+
+    public ResponseEntity<Object> getOneAuthor(UUID id) {
+
+        Optional autor = authorRepository.findById(id);
+
+        if (!autor.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Autor(a) não localizado");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(autor);
+        }
     }
 }

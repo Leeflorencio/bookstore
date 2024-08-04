@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("author")
 public class AuthorController {
@@ -17,6 +19,11 @@ public class AuthorController {
     @PostMapping
     public ResponseEntity<Object> saveAuthor(@RequestBody AuthorDto authorDto) throws ExceptionSaveAuthor {
         return authorService.saveAuthor(authorDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getOneAuthor(@PathVariable UUID id){
+        return authorService.getOneAuthor(id);
     }
 
 }
