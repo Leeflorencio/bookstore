@@ -15,6 +15,10 @@ Aplicação simples de Livraria construída usando Java e Spring Boot.
 - *@GetMapping getAllBooks* - Lista todos os livros salvos. 
 - *@DeleteMapping("/{id}") deleteBook* - Deleta um livro através do seu identificador. 
 - *@GetMapping("/{id}") getOneBook* - Localiza um livro através do seu identificador.
+
+### Author
+- *@PostMapping saveAuthor* - Realiza o cadastro de um novo autor, com verificação de duplicidade através do nome.
+- *@GetMapping("/{id}") getOneAuthor* - Localiza um autor através do seu identificador.
   
 ## Tecnologias 
 
