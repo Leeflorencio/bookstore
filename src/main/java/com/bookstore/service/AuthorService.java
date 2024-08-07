@@ -38,24 +38,32 @@ public class AuthorService {
     }
 
     public ResponseEntity<Object> getOneAuthor(UUID id) {
+        try {
+            Optional autor = authorRepository.findById(id);
 
-        Optional autor = authorRepository.findById(id);
-
-        if (!autor.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Autor(a) não localizado");
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(autor);
+            if (!autor.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Autor(a) não localizado");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(autor);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 
     public ResponseEntity<Object> getAllAuthors() {
-        List<AuthorModel> listaAutores = authorRepository.findAll();
+        try {
+            List<AuthorModel> listaAutores = authorRepository.findAll();
 
-        if (listaAutores.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum autor(a) encontrado");
-        }else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(listaAutores);
+            if (listaAutores.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum autor(a) encontrado");
+            } else {
+                return ResponseEntity.status(HttpStatus.CREATED).body(listaAutores);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e);
         }
+
 
     }
 }
