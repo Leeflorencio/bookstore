@@ -19,6 +19,7 @@ Aplicação simples de Livraria construída usando Java e Spring Boot.
 ### Author
 - *@PostMapping saveAuthor* - Realiza o cadastro de um novo autor, com verificação de duplicidade através do nome.
 - *@GetMapping("/{id}") getOneAuthor* - Localiza um autor através do seu identificador.
+- *@GetMapping getAllAuthors* - Lista todos os autores salvos.
   
 ## Tecnologias 
 
